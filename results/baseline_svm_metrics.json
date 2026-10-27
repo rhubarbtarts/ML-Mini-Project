@@ -1,0 +1,12 @@
+{
+  "model": "RBF SVM",
+  "dataset": "Spotify track genre dataset",
+  "sample_size": 11400,
+  "train_size": 9120,
+  "test_size": 2280,
+  "number_of_genres": 114,
+  "accuracy": 0.218859649122807,
+  "macro_f1": 0.1940676921816461,
+  "training_seconds": 2.852259399999639,
+  "random_state": 42
+}

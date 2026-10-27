@@ -42,11 +42,18 @@ def prepare_data():
 
     # Convert Boolean explicit values to numeric values.
     df["explicit"] = df["explicit"].astype(int)
-
+    
     # Keep only rows with complete, valid numeric features.
     for col in FEATURES:
         df[col] = pd.to_numeric(df[col], errors="coerce")
+
+    # Treat invalid zero values as missing.
+    df.loc[df["tempo"] <= 0, "tempo"] = float("nan")
+    df.loc[df["duration_ms"] <= 0, "duration_ms"] = float("nan")
+
+    # Drop rows with missing values in any feature.
     df = df.dropna(subset=FEATURES)
+
 
     PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
     output = PROCESSED_DIR / "tracks_clean.csv"

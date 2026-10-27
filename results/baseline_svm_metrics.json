@@ -1,12 +1,19 @@
 {
-  "model": "RBF SVM",
+  "model": "Tuned RBF SVM",
+  "target": "track_genre",
   "dataset": "Spotify track genre dataset",
   "sample_size": 11400,
+  "tracks_per_genre": 100,
   "train_size": 9120,
   "test_size": 2280,
   "number_of_genres": 114,
-  "accuracy": 0.218859649122807,
-  "macro_f1": 0.1940676921816461,
-  "training_seconds": 2.852259399999639,
+  "accuracy": 0.2179824561403509,
+  "macro_f1": 0.19378218377417944,
+  "best_cv_accuracy": 0.20076754385964915,
+  "best_params": {
+    "svc__C": 10,
+    "svc__gamma": 0.01
+  },
+  "training_seconds": 95.8896877,
   "random_state": 42
 }

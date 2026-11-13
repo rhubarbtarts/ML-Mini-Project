@@ -27,12 +27,19 @@ FEATURES = [
 TARGET = "track_genre"
 
 
+
 def load_data(seed=42):
     if not PROCESSED_FILE.exists():
         raise FileNotFoundError(f"Dataset not found: {PROCESSED_FILE}")
 
     df = pd.read_csv(PROCESSED_FILE)
     df = df.dropna(subset=FEATURES + [TARGET])
+
+    df = (
+        df.groupby(TARGET, group_keys=False)
+        .sample(n=100, random_state=seed)
+        .reset_index(drop=True)
+    )
 
     X = df[FEATURES]
     y = df[TARGET]

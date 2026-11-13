@@ -1,9 +1,10 @@
-﻿from pathlib import Path
+﻿
+from pathlib import Path
 import pandas as pd
+from sklearn.model_selection import train_test_split
 
 ROOT = Path(__file__).resolve().parents[1]
-RAW_FILE = ROOT / "data" / "raw" / "spotify_tracks.csv"
-PROCESSED_DIR = ROOT / "data" / "processed"
+PROCESSED_FILE = ROOT / "data" / "processed" / "tracks_clean.csv"
 
 FEATURES = [
     "popularity",
@@ -22,50 +23,42 @@ FEATURES = [
     "tempo",
     "time_signature",
 ]
+
 TARGET = "track_genre"
 
 
-def prepare_data():
-    if not RAW_FILE.exists():
-        raise FileNotFoundError(f"Dataset not found: {RAW_FILE}")
+def load_data(seed=42):
+    if not PROCESSED_FILE.exists():
+        raise FileNotFoundError(f"Dataset not found: {PROCESSED_FILE}")
 
-    df = pd.read_csv(RAW_FILE)
-    required = FEATURES + [TARGET]
-    missing = [col for col in required if col not in df.columns]
+    df = pd.read_csv(PROCESSED_FILE)
+    df = df.dropna(subset=FEATURES + [TARGET])
 
-    if missing:
-        raise ValueError(f"Missing required columns: {missing}")
+    X = df[FEATURES]
+    y = df[TARGET]
 
-    df = df[required].copy()
-    df = df.dropna(subset=[TARGET])
-    df = df.drop_duplicates()
+    X_train, X_test, y_train, y_test = train_test_split(
+        X,
+        y,
+        test_size=0.2,
+        random_state=seed,
+        stratify=y
+    )
 
-    # Convert Boolean explicit values to numeric values.
-    df["explicit"] = df["explicit"].astype(int)
-    
-    # Keep only rows with complete, valid numeric features.
-    for col in FEATURES:
-        df[col] = pd.to_numeric(df[col], errors="coerce")
-
-    # Treat invalid zero values as missing.
-    df.loc[df["tempo"] <= 0, "tempo"] = float("nan")
-    df.loc[df["duration_ms"] <= 0, "duration_ms"] = float("nan")
-
-    # Drop rows with missing values in any feature.
-    df = df.dropna(subset=FEATURES)
-
-
-    PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
-    output = PROCESSED_DIR / "tracks_clean.csv"
-    df.to_csv(output, index=False)
-
-    print(f"Rows prepared: {len(df):,}")
-    print(f"Number of genres: {df[TARGET].nunique()}")
-    print(f"Features: {len(FEATURES)}")
-    print(f"Saved to: {output}")
-    print("\nMost common genres:")
-    print(df[TARGET].value_counts().head(10).to_string())
+    return (
+        X_train,
+        X_test,
+        y_train,
+        y_test,
+        FEATURES,
+        sorted(y.unique().tolist())
+    )
 
 
 if __name__ == "__main__":
-    prepare_data()
+    X_train, X_test, y_train, y_test, feature_names, playlist_names = load_data()
+
+    print("Training rows:", len(X_train))
+    print("Testing rows:", len(X_test))
+    print("Features:", len(feature_names))
+    print("Genres:", len(playlist_names))

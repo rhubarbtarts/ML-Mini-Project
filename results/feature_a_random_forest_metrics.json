@@ -1,0 +1,46 @@
+{
+  "model": "Random Forest",
+  "feature": "Feature A",
+  "target": "track_genre",
+  "sample_size": 11400,
+  "train_size": 9120,
+  "test_size": 2280,
+  "number_of_genres": 114,
+  "train_accuracy": 0.9490131578947368,
+  "accuracy": 0.2956140350877193,
+  "macro_f1": 0.2693949855056113,
+  "best_cv_accuracy": 0.27050438596491233,
+  "cv_fold_scores": [
+    0.27960526315789475,
+    0.2642543859649123,
+    0.26973684210526316,
+    0.26864035087719296,
+    0.27028508771929827
+  ],
+  "best_params": {
+    "n_estimators": 200,
+    "max_depth": 20,
+    "min_samples_split": 10,
+    "min_samples_leaf": 2,
+    "max_features": "sqrt"
+  },
+  "training_seconds": 27.4784037,
+  "random_state": 42,
+  "features": [
+    "popularity",
+    "duration_ms",
+    "explicit",
+    "danceability",
+    "energy",
+    "key",
+    "loudness",
+    "mode",
+    "speechiness",
+    "acousticness",
+    "instrumentalness",
+    "liveness",
+    "valence",
+    "tempo",
+    "time_signature"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+    "best_number_of_clusters": 3,
+    "best_silhouette_score": 0.19318141184999246,
+    "tracks_clustered": 11400,
+    "features_used": [
+        "popularity",
+        "duration_ms",
+        "explicit",
+        "danceability",
+        "energy",
+        "key",
+        "loudness",
+        "mode",
+        "speechiness",
+        "acousticness",
+        "instrumentalness",
+        "liveness",
+        "valence",
+        "tempo",
+        "time_signature"
+    ],
+    "genre_labels_used_for_clustering": false,
+    "pca_explained_variance": [
+        0.1971534750933932,
+        0.1041424654154323
+    ]
+}

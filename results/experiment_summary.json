@@ -1,0 +1,65 @@
+{
+    "dataset": "Spotify track genre dataset",
+    "sample_size": 11400,
+    "number_of_genres": 114,
+    "features": [
+        "popularity",
+        "duration_ms",
+        "explicit",
+        "danceability",
+        "energy",
+        "key",
+        "loudness",
+        "mode",
+        "speechiness",
+        "acousticness",
+        "instrumentalness",
+        "liveness",
+        "valence",
+        "tempo",
+        "time_signature"
+    ],
+    "random_state": 42,
+    "classification_models": [
+        {
+            "model": "Random Forest (Feature A)",
+            "accuracy": 0.2956140350877193,
+            "macro_f1": 0.2693949855056113,
+            "training_seconds": 27.4784037
+        },
+        {
+            "model": "RBF SVM",
+            "accuracy": 0.2179824561403509,
+            "macro_f1": 0.19378218377417944,
+            "training_seconds": 24.565652699995553
+        },
+        {
+            "model": "Neural Network",
+            "accuracy": 0.20789473684210527,
+            "macro_f1": 0.17230989202311214,
+            "training_seconds": 4.280706599995028
+        }
+    ],
+    "best_classification_model": "Random Forest (Feature A)",
+    "best_classification_accuracy": 0.2956140350877193,
+    "feature_a": {
+        "best_parameters": {
+            "n_estimators": 200,
+            "max_depth": 20,
+            "min_samples_split": 10,
+            "min_samples_leaf": 2,
+            "max_features": "sqrt"
+        },
+        "cross_validation_accuracy": 0.27050438596491233,
+        "training_accuracy": 0.9490131578947368,
+        "test_accuracy": 0.2956140350877193,
+        "macro_f1": 0.2693949855056113
+    },
+    "feature_b": {
+        "best_number_of_clusters": 3,
+        "silhouette_score": 0.19318141184999246,
+        "tracks_clustered": 11400,
+        "genre_labels_used_for_clustering": false
+    },
+    "note": "Classification accuracy and clustering silhouette scores measure different objectives and should not be compared directly."
+}
